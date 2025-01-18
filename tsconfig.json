@@ -19,8 +19,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "*": ["*"],
+      "@adapters/*": ["src/adapters/*"],
       "@application/*": ["src/application/*"],
-      "@controllers/*": ["src/adapters/primary/controllers/*"]
+      "@controllers/*": ["src/adapters/primary/controllers/*"],
+      "@entities/*": ["src/application/entities/*"],
     }
   }
 }
