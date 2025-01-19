@@ -4,8 +4,11 @@ import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3-client
 export class S3ClientRepository implements S3ClientRepositoryPort {
   constructor(private _s3ClientProvider: S3ClientProviderPort) {}
 
-  async saveFile(fileBuffer: any): Promise<void> {
-    await this._s3ClientProvider.saveFileToS3(fileBuffer);
+  async saveFile(
+    userId: string,
+    fileBuffer: Express.Multer.File,
+  ): Promise<void> {
+    await this._s3ClientProvider.saveFileToS3(userId, fileBuffer);
   }
 
   getFile(): Promise<void> {

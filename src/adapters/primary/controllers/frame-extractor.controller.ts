@@ -52,7 +52,10 @@ export class FrameExtractorController implements FrameExtractorControllerPort {
       createdAt: new Date().toISOString(),
     };
 
-    await uploadFileUsecase.execute(Video.build(item.userId, file));
+    await uploadFileUsecase.execute(
+      item.userId,
+      Video.build(item.userId, file),
+    );
     await persistVideoInDbUsecase.execute(item);
     await sendMessageToQueueUsecase.execute({
       ...item,

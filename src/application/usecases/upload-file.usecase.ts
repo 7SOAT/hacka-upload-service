@@ -4,7 +4,7 @@ import { Video } from '@entities/video';
 export class UploadFileUseCase {
   constructor(private s3ClientRepository: S3ClientRepositoryPort) {}
 
-  async execute(video: Video) {
-    await this.s3ClientRepository.saveFile(video.toJson().file);
+  async execute(userId: string, video: Video) {
+    await this.s3ClientRepository.saveFile(userId, video.toJson().file);
   }
 }

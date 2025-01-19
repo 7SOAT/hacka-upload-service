@@ -1,4 +1,4 @@
 export interface S3ClientRepositoryPort {
-  saveFile(fileBuffer: any): Promise<void>;
+  saveFile(userId: string, fileBuffer: Express.Multer.File): Promise<void>;
   getFile(): Promise<void>;
 }

@@ -33,10 +33,13 @@ export class S3ClientProvider implements S3ClientProviderPort {
     return file;
   }
 
-  async saveFileToS3(fileToUpload: Express.Multer.File): Promise<any> {
+  async saveFileToS3(
+    userId: string,
+    fileToUpload: Express.Multer.File,
+  ): Promise<any> {
     const command = new PutObjectCommand({
       Bucket: 'frame-extractor-storage',
-      Key: 'frame-extractor-storage/myFiles/' + fileToUpload.originalname,
+      Key: `frame-extractor-storage/${userId}/` + fileToUpload.originalname,
       Body: fileToUpload.buffer,
       ContentType: fileToUpload.mimetype,
     });
