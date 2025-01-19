@@ -8,12 +8,16 @@ import { S3ClientRepository } from 'src/interface/repositories/s3client.reposito
 import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3client.provider.port';
 import { Video } from '@entities/video';
 import { randomUUID } from 'crypto';
+import { SqsClientProviderPort } from 'src/adapters/secondary/providers/sqs-client.provider.port';
+import { SqsClientRepository } from 'src/interface/repositories/sqs-client.repository';
 
 @Injectable()
 export class FrameExtractorController implements FrameExtractorControllerPort {
   constructor(
     @Inject()
     private s3ClientProvider: S3ClientProviderPort,
+    @Inject()
+    private sqsClientProvider: SqsClientProviderPort,
   ) {}
 
   async execute(
@@ -21,7 +25,12 @@ export class FrameExtractorController implements FrameExtractorControllerPort {
     file: Express.Multer.File,
   ): Promise<void> {
     const s3ClientRepository = new S3ClientRepository(this.s3ClientProvider);
-    const frameExtractorUsecase = new FrameExtractorUseCase(s3ClientRepository);
+    const sqsClientRepository = new SqsClientRepository(this.sqsClientProvider);
+
+    const frameExtractorUsecase = new FrameExtractorUseCase(
+      s3ClientRepository,
+      sqsClientRepository,
+    );
 
     await frameExtractorUsecase.execute(Video.build(randomUUID(), file));
   }
