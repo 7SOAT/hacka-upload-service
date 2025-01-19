@@ -1,3 +1,3 @@
 export interface SqsClientRepositoryPort {
-  sendMessage(): Promise<void>;
+  sendMessage(message: object): Promise<void>;
 }

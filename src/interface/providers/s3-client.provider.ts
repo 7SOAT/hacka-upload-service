@@ -1,4 +1,4 @@
-import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3client.provider.port';
+import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3-client.provider.port';
 import {
   S3Client,
   GetObjectCommand,

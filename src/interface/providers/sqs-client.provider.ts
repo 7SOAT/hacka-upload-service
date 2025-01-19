@@ -14,26 +14,11 @@ export class SqsClientProvider implements SqsClientProviderPort {
     });
   }
 
-  async sendMessage(): Promise<void> {
+  async sendMessage(message: object): Promise<void> {
     const command = new SendMessageCommand({
       QueueUrl:
         'https://localhost.localstack.cloud:4566/000000000000/frame-extractor-queue',
-      MessageAttributes: {
-        Title: {
-          DataType: 'String',
-          StringValue: 'The Whistler',
-        },
-        Author: {
-          DataType: 'String',
-          StringValue: 'John Grisham',
-        },
-        WeeksOn: {
-          DataType: 'Number',
-          StringValue: '6',
-        },
-      },
-      MessageBody:
-        'Information about current NY Times fiction bestseller for week of 12/11/2016.',
+      MessageBody: JSON.stringify(message),
     });
 
     await this._sqsClient.send(command);

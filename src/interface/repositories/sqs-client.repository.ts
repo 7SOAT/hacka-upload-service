@@ -4,7 +4,7 @@ import { SqsClientProviderPort } from '@adapters/secondary/providers/sqs-client.
 export class SqsClientRepository implements SqsClientRepositoryPort {
   constructor(private sqsClientProvider: SqsClientProviderPort) {}
 
-  async sendMessage(): Promise<void> {
-    await this.sqsClientProvider.sendMessage();
+  async sendMessage(message: object): Promise<void> {
+    await this.sqsClientProvider.sendMessage(message);
   }
 }

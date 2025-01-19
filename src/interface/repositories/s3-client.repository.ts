@@ -1,5 +1,5 @@
-import { S3ClientRepositoryPort } from '@adapters/secondary/repositories/s3client.repository.port';
-import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3client.provider.port';
+import { S3ClientRepositoryPort } from 'src/adapters/secondary/repositories/s3-client.repository.port';
+import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3-client.provider.port';
 
 export class S3ClientRepository implements S3ClientRepositoryPort {
   constructor(private _s3ClientProvider: S3ClientProviderPort) {}

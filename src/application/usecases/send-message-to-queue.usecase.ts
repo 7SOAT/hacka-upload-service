@@ -3,7 +3,7 @@ import { SqsClientRepositoryPort } from '@adapters/secondary/repositories/sqs-cl
 export class SendMessageToQueueUseCase {
   constructor(private sqsClientRepository: SqsClientRepositoryPort) {}
 
-  async execute() {
-    await this.sqsClientRepository.sendMessage();
+  async execute(message: object) {
+    await this.sqsClientRepository.sendMessage(message);
   }
 }

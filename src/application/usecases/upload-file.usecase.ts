@@ -1,4 +1,4 @@
-import { S3ClientRepositoryPort } from '@adapters/secondary/repositories/s3client.repository.port';
+import { S3ClientRepositoryPort } from 'src/adapters/secondary/repositories/s3-client.repository.port';
 import { Video } from '@entities/video';
 
 export class UploadFileUseCase {
