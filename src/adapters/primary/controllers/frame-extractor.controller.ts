@@ -5,7 +5,7 @@ import {
 } from '@controllers/ports/frame-extractor.controller.port';
 import { S3ClientRepository } from 'src/interface/repositories/s3-client.repository';
 import { S3ClientProviderPort } from 'src/adapters/secondary/providers/s3-client.provider.port';
-import { Video } from '@entities/video';
+import { VideoProcessData } from '@entities/video';
 import { randomUUID } from 'crypto';
 import { SqsClientProviderPort } from 'src/adapters/secondary/providers/sqs-client.provider.port';
 import { SqsClientRepository } from 'src/interface/repositories/sqs-client.repository';
@@ -14,6 +14,7 @@ import { SendMessageToQueueUseCase } from 'src/application/usecases/send-message
 import { DynamoDbClientProviderPort } from 'src/adapters/secondary/providers/dynamodb.provider.port';
 import { DynamoDBClientRepository } from 'src/interface/repositories/dynamodb-client.repository';
 import { PersistVideoInDbUseCase } from 'src/application/usecases/persist-video-in-db.usecase';
+import { VideoStatus } from '@enums/video-status.enum';
 
 @Injectable()
 export class FrameExtractorController implements FrameExtractorControllerPort {
@@ -46,20 +47,26 @@ export class FrameExtractorController implements FrameExtractorControllerPort {
       dynamoDBClientRepository,
     );
 
-    const item = {
-      userId: randomUUID(),
-      videoId: randomUUID(),
+    const userId = randomUUID();
+    const videoId = randomUUID();
+
+    const item: VideoProcessData = {
+      userId: userId,
+      videoId: videoId,
+      s3Key: `${userId}/${videoId}/${file.originalname}`,
+      status: VideoStatus.UPLOADING,
       createdAt: new Date().toISOString(),
     };
 
-    await uploadFileUsecase.execute(
-      item.userId,
-      Video.build(item.userId, file),
-    );
+    await uploadFileUsecase.execute(item, file);
     await persistVideoInDbUsecase.execute(item);
     await sendMessageToQueueUsecase.execute({
-      ...item,
-      messageId: randomUUID(),
+      UserId: item.userId,
+      VideoId: item.videoId,
+      S3Key: item.s3Key,
+      Status: item.status,
+      CreatedAt: item.createdAt,
+      MessageId: randomUUID(),
     });
   }
 }

@@ -5,6 +5,7 @@ import {
   PutObjectCommand,
 } from '@aws-sdk/client-s3';
 import { randomUUID } from 'crypto';
+import { VideoProcessData } from 'src/application/entities/video';
 
 export class S3ClientProvider implements S3ClientProviderPort {
   private _s3Client: S3Client;
@@ -34,12 +35,12 @@ export class S3ClientProvider implements S3ClientProviderPort {
   }
 
   async saveFileToS3(
-    userId: string,
+    item: VideoProcessData,
     fileToUpload: Express.Multer.File,
   ): Promise<any> {
     const command = new PutObjectCommand({
       Bucket: 'frame-extractor-storage',
-      Key: `frame-extractor-storage/${userId}/` + fileToUpload.originalname,
+      Key: `frame-extractor-storage/${item.s3Key}`,
       Body: fileToUpload.buffer,
       ContentType: fileToUpload.mimetype,
     });

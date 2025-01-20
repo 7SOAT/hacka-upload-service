@@ -23,6 +23,7 @@
       "@application/*": ["src/application/*"],
       "@controllers/*": ["src/adapters/primary/controllers/*"],
       "@entities/*": ["src/application/entities/*"],
+      "@enums/*": ["src/application/entities/enums/*"],
     }
   }
 }
