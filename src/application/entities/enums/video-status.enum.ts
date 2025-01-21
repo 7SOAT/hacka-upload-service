@@ -1,5 +1,0 @@
-export enum VideoStatus {
-  UPLOADING = 'UPLOADING',
-  PROCESSING = 'PROCESSING',
-  COMPLETED = 'COMPLETED',
-}

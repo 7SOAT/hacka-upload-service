@@ -21,9 +21,9 @@
       "*": ["*"],
       "@adapters/*": ["src/adapters/*"],
       "@application/*": ["src/application/*"],
-      "@controllers/*": ["src/adapters/primary/controllers/*"],
-      "@entities/*": ["src/application/entities/*"],
-      "@enums/*": ["src/application/entities/enums/*"],
+      "@controllers/*": ["src/adapters/controllers/controllers/*"],
+      "@entities/*": ["src/core/entities/*"],
+      "@enums/*": ["src/core/entities/enums/*"],
     }
   }
 }
