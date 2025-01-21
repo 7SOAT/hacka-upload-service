@@ -8,24 +8,14 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostFrameExtractorDTO } from './dto/post-frame-extractor.dto';
-import { UploadVideoController } from 'src/adapters/controllers/upload-video.controller';
-import { SendMessageToQueueUseCase } from 'src/application/use-cases/send-message-to-queue.usecase';
-import { PersistVideoDataUseCase } from 'src/application/use-cases/persist-video-data.usecase';
-import { UploadVideoUseCasePort } from 'src/application/ports/upload-video.usecase.port';
+import { UploadVideoControllerPort } from 'src/adapters/controllers/ports/upload-video.controller.port';
 
 @Controller('v1/upload-video')
 export class PostUploadVideoController {
-  private _uploadVideoController: UploadVideoController;
-  private _sendMessageToQueueUseCase: SendMessageToQueueUseCase;
-  private _persistVideoDataUseCase: PersistVideoDataUseCase;
-
-  constructor(@Inject() private _uploadVideoUseCase: UploadVideoUseCasePort) {
-    this._uploadVideoController = new UploadVideoController(
-      this._uploadVideoUseCase,
-      this._sendMessageToQueueUseCase,
-      this._persistVideoDataUseCase,
-    );
-  }
+  constructor(
+    @Inject('UploadVideoControllerPort')
+    private _uploadVideoController: UploadVideoControllerPort,
+  ) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))

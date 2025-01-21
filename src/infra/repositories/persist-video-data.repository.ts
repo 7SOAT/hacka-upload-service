@@ -1,12 +1,12 @@
 import { PersistVideoDataGateway } from 'src/adapters/gateways/persist-video-data.gateway';
-import { DynamoDbClientDataSourcePort } from '../data-sources/ports/dynamodb-client.data-source.port';
+import { DynamoDBClientDataSourcePort } from '../data-sources/ports/dynamodb-client.data-source.port';
 
 export class PersistVideoDataRepository implements PersistVideoDataGateway {
   private videosTableName = 'video-tables';
 
-  constructor(private dataSource: DynamoDbClientDataSourcePort) {}
+  constructor(private _dataSource: DynamoDBClientDataSourcePort) {}
 
   async execute(item: any) {
-    await this.dataSource.putItem(this.videosTableName, item);
+    await this._dataSource.putItem(this.videosTableName, item);
   }
 }

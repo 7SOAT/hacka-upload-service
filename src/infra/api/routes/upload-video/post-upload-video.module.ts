@@ -1,0 +1,104 @@
+import { Module } from '@nestjs/common';
+import { PostUploadVideoController } from './post-upload-video.controller';
+import { UploadVideoController } from 'src/adapters/controllers/upload-video.controller';
+import { PersistVideoDataGateway } from 'src/adapters/gateways/persist-video-data.gateway';
+import { SendMessageToQueueGateway } from 'src/adapters/gateways/send-message-to-queue.gateway';
+import { UploadVideoGateway } from 'src/adapters/gateways/upload-video.gateway';
+import { PersistVideoDataUseCasePort } from 'src/application/ports/persist-video-data.usecase.port';
+import { SendMessageToQueueUseCasePort } from 'src/application/ports/send-message-to-queue.usecase.port';
+import { UploadVideoUseCasePort } from 'src/application/ports/upload-video.usecase.port';
+import { PersistVideoDataUseCase } from 'src/application/use-cases/persist-video-data.usecase';
+import { SendMessageToQueueUseCase } from 'src/application/use-cases/send-message-to-queue.usecase';
+import { UploadVideoUseCase } from 'src/application/use-cases/upload-video.usecase';
+import { DynamoDBClientDataSource } from 'src/infra/data-sources/dynamodb-client.data-source';
+import { DynamoDBClientDataSourcePort } from 'src/infra/data-sources/ports/dynamodb-client.data-source.port';
+import { S3ClientDataSourcePort } from 'src/infra/data-sources/ports/s3-client.data-source.port';
+import { SQSClientDataSourcePort } from 'src/infra/data-sources/ports/sqs-client.data-source.port';
+import { S3ClientDataSource } from 'src/infra/data-sources/s3-client.data-source';
+import { SQSClientDataSource } from 'src/infra/data-sources/sqs-client.data-source';
+import { PersistVideoDataRepository } from 'src/infra/repositories/persist-video-data.repository';
+import { SendMessageToQueueRepository } from 'src/infra/repositories/send-message-to-queue.repository';
+import { UploadVideoRepository } from 'src/infra/repositories/upload-video.repository';
+
+@Module({
+  controllers: [PostUploadVideoController],
+  providers: [
+    {
+      provide: 'S3ClientDataSourcePort',
+      useClass: S3ClientDataSource,
+    },
+    {
+      provide: 'UploadVideoGateway',
+      useFactory: (_dataSource: S3ClientDataSourcePort) => {
+        return new UploadVideoRepository(_dataSource);
+      },
+      inject: ['S3ClientDataSourcePort'],
+    },
+    {
+      provide: 'UploadVideoUseCasePort',
+      useFactory: (_uploadVideoRepository: UploadVideoGateway) => {
+        return new UploadVideoUseCase(_uploadVideoRepository);
+      },
+      inject: ['UploadVideoGateway'],
+    },
+    {
+      provide: 'SQSClientDataSourcePort',
+      useClass: SQSClientDataSource,
+    },
+    {
+      provide: 'SendMessageToQueueGateway',
+      useFactory: (_dataSource: SQSClientDataSourcePort) => {
+        return new SendMessageToQueueRepository(_dataSource);
+      },
+      inject: ['SQSClientDataSourcePort'],
+    },
+    {
+      provide: 'SendMessageToQueueUseCasePort',
+      useFactory: (
+        _sendMessageToQueueRepository: SendMessageToQueueGateway,
+      ) => {
+        return new SendMessageToQueueUseCase(_sendMessageToQueueRepository);
+      },
+      inject: ['SendMessageToQueueGateway'],
+    },
+    {
+      provide: 'DynamoDBClientDataSourcePort',
+      useClass: DynamoDBClientDataSource,
+    },
+    {
+      provide: 'PersistVideoDataGateway',
+      useFactory: (_dataSource: DynamoDBClientDataSourcePort) => {
+        return new PersistVideoDataRepository(_dataSource);
+      },
+      inject: ['DynamoDBClientDataSourcePort'],
+    },
+    {
+      provide: 'PersistVideoDataUseCasePort',
+      useFactory: (_persistVideoDataRepository: PersistVideoDataGateway) => {
+        return new PersistVideoDataUseCase(_persistVideoDataRepository);
+      },
+      inject: ['PersistVideoDataGateway'],
+    },
+    {
+      provide: 'UploadVideoControllerPort',
+      useFactory: (
+        _uploadVideoUseCase: UploadVideoUseCasePort,
+        _sendMessageToQueueUseCase: SendMessageToQueueUseCasePort,
+        _persistVideoDataUseCase: PersistVideoDataUseCasePort,
+      ) => {
+        return new UploadVideoController(
+          _uploadVideoUseCase,
+          _sendMessageToQueueUseCase,
+          _persistVideoDataUseCase,
+        );
+      },
+      inject: [
+        'UploadVideoUseCasePort',
+        'SendMessageToQueueUseCasePort',
+        'PersistVideoDataUseCasePort',
+      ],
+    },
+  ],
+  exports: ['UploadVideoControllerPort'],
+})
+export default class PostUploadVideoControllerModule {}

@@ -1,9 +1,8 @@
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
-import { DynamoDbClientDataSourcePort } from './ports/dynamodb-client.data-source.port';
-import { Injectable } from 'node_modules/@nestjs/common';
+import { DynamoDBClientDataSourcePort } from './ports/dynamodb-client.data-source.port';
 
-export class DynamoDbClientDataSource implements DynamoDbClientDataSourcePort {
+export class DynamoDBClientDataSource implements DynamoDBClientDataSourcePort {
   private _dynamodbClient: DynamoDBClient;
 
   constructor() {
