@@ -23,6 +23,6 @@ export class PostUploadVideoController {
     @Body() input: PostFrameExtractorDTO,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    this._uploadVideoController.execute(file);
+    await this._uploadVideoController.execute(file);
   }
 }
