@@ -19,8 +19,8 @@ spec:
         image: luizpainodev/hacka-video-uploader-api:latest
         envFrom:
         - configMapRef:
-          name: hacka-video-config-map
+            name: hacka-video-config-map
         - secretRef:
-          name: hacka-video-secrets
+            name: hacka-video-secrets
         ports:
         - containerPort: 3000  # Porta em que sua aplicação escuta
