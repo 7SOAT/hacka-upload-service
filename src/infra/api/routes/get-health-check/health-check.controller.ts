@@ -2,7 +2,7 @@ import { Controller, Get, Inject } from '@nestjs/common';
 import { EnvironmentServicePort } from 'src/config/environment/ports/environment.service.port';
 
 @Controller('health')
-export class HealthCheckController {
+export class HealthCheckRoute {
   constructor(
     @Inject('EnvironmentServicePort')
     private _environments: EnvironmentServicePort,

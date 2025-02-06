@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PostUploadVideoController } from './post-upload-video.controller';
+import { PostUploadVideoRoute } from './post-upload-video.controller';
 import { UploadVideoController } from 'src/adapters/controllers/upload-video.controller';
 import { PersistVideoDataGateway } from 'src/adapters/gateways/persist-video-data.gateway';
 import { SendMessageToQueueGateway } from 'src/adapters/gateways/send-message-to-queue.gateway';
@@ -23,7 +23,7 @@ import { EnvironmentService } from 'src/config/environment/environment.service';
 import { EnvironmentServicePort } from 'src/config/environment/ports/environment.service.port';
 
 @Module({
-  controllers: [PostUploadVideoController],
+  controllers: [PostUploadVideoRoute],
   providers: [
     {
       provide: 'EnvironmentServicePort',
@@ -116,4 +116,4 @@ import { EnvironmentServicePort } from 'src/config/environment/ports/environment
   ],
   exports: ['UploadVideoControllerPort'],
 })
-export default class PostUploadVideoControllerModule {}
+export default class PostUploadVideoRouteModule {}

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { HealthCheckController } from './health-check.controller';
+import { HealthCheckRoute } from './health-check.controller';
 import { EnvironmentService } from 'src/config/environment/environment.service';
 
 @Module({
-  controllers: [HealthCheckController],
+  controllers: [HealthCheckRoute],
   providers: [
     {
       provide: 'EnvironmentServicePort',
@@ -11,4 +11,4 @@ import { EnvironmentService } from 'src/config/environment/environment.service';
     },
   ],
 })
-export default class HealthCheckControllerModule {}
+export default class HealthCheckRouteModule {}

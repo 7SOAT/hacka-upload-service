@@ -6,6 +6,7 @@ import {
 import { randomUUID } from 'crypto';
 import { S3ClientDataSourcePort } from './ports/s3-client.data-source.port';
 import { EnvironmentServicePort } from 'src/config/environment/ports/environment.service.port';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export class S3ClientDataSource implements S3ClientDataSourcePort {
   private _s3Client: S3Client;
@@ -45,6 +46,19 @@ export class S3ClientDataSource implements S3ClientDataSourcePort {
 
     try {
       await this._s3Client.send(command);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getPreSignedUrl(s3Key: string): Promise<string> {
+    const command = new PutObjectCommand({
+      Bucket: this._environments.frameExtractorS3Bucket,
+      Key: `${this._environments.frameExtractorS3Bucket}/${s3Key}`,
+    });
+
+    try {
+      return await getSignedUrl(this._s3Client, command);
     } catch (error) {
       throw error;
     }

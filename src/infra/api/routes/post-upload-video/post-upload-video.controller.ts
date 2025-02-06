@@ -11,7 +11,7 @@ import { PostFrameExtractorDTO } from './dto/post-frame-extractor.dto';
 import { UploadVideoControllerPort } from 'src/adapters/controllers/ports/upload-video.controller.port';
 
 @Controller('v1/upload-video')
-export class PostUploadVideoController {
+export class PostUploadVideoRoute {
   constructor(
     @Inject('UploadVideoControllerPort')
     private _uploadVideoController: UploadVideoControllerPort,

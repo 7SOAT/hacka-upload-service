@@ -4,7 +4,7 @@ import { VideoStatus } from 'src/core/entities/enums/video-status.enum';
 import { UploadVideoUseCasePort } from 'src/application/ports/upload-video.usecase.port';
 import { SendMessageToQueueUseCasePort } from 'src/application/ports/send-message-to-queue.usecase.port';
 import { PersistVideoDataUseCasePort } from 'src/application/ports/persist-video-data.usecase.port';
-import { UploadVideoControllerPort } from './ports/upload-video.controller.port';
+import { UploadVideoControllerPort } from 'src/adapters/controllers/ports/upload-video.controller.port';
 
 export class UploadVideoController implements UploadVideoControllerPort {
   constructor(
