@@ -2,17 +2,16 @@
 FROM node:20-slim AS base
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --only=production && npm cache clean --force
+RUN npm install && npm cache clean --force
 COPY . .
 
 # Etapa de Desenvolvimento
 FROM base AS development
-RUN npm install --only=development
 CMD ["npm", "run", "start"]
 
-# Etapa de Build
+# Etapa de Build (compila o código TypeScript para JavaScript)
 FROM base AS build
-RUN npm run build  # Gera a pasta dist/
+RUN npm run build
 
 # Etapa de Produção
 FROM node:20-slim AS production
