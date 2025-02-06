@@ -67,6 +67,15 @@ jobs:
         run: |
           aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ github.event.inputs.aws-region }}
 
+      - name: Create Kubernetes Secret
+        run: |
+          kubectl create secret generic hacka-video-secrets \
+            --from-literal=AWS_REGION=${{ github.event.inputs.aws-region }} \
+            --from-literal=AWS_ACCESS_KEY_ID=${{ github.event.inputs.aws-access-key-id }} \
+            --from-literal=AWS_SECRET_ACCESS_KEY=${{ github.event.inputs.aws-secret-access-key }} \
+            --from-literal=AWS_SESSION_TOKEN=${{ github.event.inputs.aws-session-token }} \
+            --dry-run=client -o yaml | kubectl apply -f -
+      
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f devops/k8s/

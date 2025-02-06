@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hacka-video-config-map
+  namespace: default
+data:
+  NODE_ENV: "production"
+  API_PORT: "3000"
+  FRAME_EXTRACTOR_S3_BUCKET: "frame-extractor-storage"
+  FRAME_EXTRACTOR_QUEUE_URL: "frame-extractor"
