@@ -68,6 +68,37 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
 
+## Docker
+```bash
+# build docker image
+$ docker build -f ./devops/docker/dockerfile -t luizpainodev/hacka-video-uploader-api .
+
+# run docker container
+$ docker run -d -p 3000:3000 luizpainodev/hacka-video-uploader-api
+
+# push docker image to docker hub
+$ docker push luizpainodev/hacka-video-uploader-api:latest
+```
+
+## Kubernetes
+```bash
+# set kubectl context
+$ aws eks update-kubeconfig --region us-east-1 --name application-cluster
+
+# apply kubernetes service
+$ kubectl apply -f ./devops/k8s/service.yaml
+
+# apply kubernetes deployment
+$ kubectl apply -f ./devops/k8s/deployment.yaml
+```
+
+## Terraform
+```bash
+# init terraform state
+$ terraform -chdir=devops/terraform init
+$ terraform -chdir=devops/terraform apply -auto-approve -no-color -compact-warnings
+```
+
 ## License
 
 Nest is [MIT licensed](LICENSE).

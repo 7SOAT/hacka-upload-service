@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hacka-video-uploader-deployment
+  labels:
+    app: hacka-video-uploader-app
+spec:
+  replicas: 1  # Número de réplicas/pods que serão criadas
+  selector:
+    matchLabels:
+      app: hacka-video-uploader-app
+  template:
+    metadata:
+      labels:
+        app: hacka-video-uploader-app
+    spec:
+      containers:
+      - name: hacka-video-uploader-app
+        image: luizpainodev/hacka-video-uploader-api:latest
+        ports:
+        - containerPort: 3000  # Porta em que sua aplicação escuta
