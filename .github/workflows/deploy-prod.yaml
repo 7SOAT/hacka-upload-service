@@ -7,6 +7,7 @@ on:
         description: 'AWS Region'
         required: true
         type: string
+        default: 'us-east-1'
       aws-access-key-id:
         description: 'AWS Access Key ID'
         required: true
