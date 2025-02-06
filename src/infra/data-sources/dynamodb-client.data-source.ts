@@ -1,16 +1,18 @@
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { marshall } from '@aws-sdk/util-dynamodb';
 import { DynamoDBClientDataSourcePort } from './ports/dynamodb-client.data-source.port';
+import { EnvironmentServicePort } from 'src/config/environment/ports/environment.service.port';
 
 export class DynamoDBClientDataSource implements DynamoDBClientDataSourcePort {
   private _dynamodbClient: DynamoDBClient;
 
-  constructor() {
+  constructor(_environments: EnvironmentServicePort) {
     this._dynamodbClient = new DynamoDBClient({
-      endpoint: 'http://localhost:4566',
+      endpoint: _environments.awsEndpoint,
       credentials: {
-        accessKeyId: 'bla',
-        secretAccessKey: 'bla2',
+        accessKeyId: _environments.awsAccessKeyId,
+        secretAccessKey: _environments.awsSecretAccessKey,
+        sessionToken: _environments.awsSessionToken,
       },
     });
   }

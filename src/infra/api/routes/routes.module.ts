@@ -1,13 +1,14 @@
 import { DynamicModule } from '@nestjs/common';
-import { HealthCheckRoute } from './health/health-check.route';
+
 import PostUploadVideoControllerModule from './upload-video/post-upload-video.module';
+import HealthCheckControllerModule from './health/health-check.module';
 
 export default class RoutesModule {
   static register(): DynamicModule {
     return {
       module: this,
-      controllers: [HealthCheckRoute],
-      imports: [PostUploadVideoControllerModule],
+      controllers: [],
+      imports: [PostUploadVideoControllerModule, HealthCheckControllerModule],
     };
   }
 }

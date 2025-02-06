@@ -19,13 +19,22 @@ import { SQSClientDataSource } from 'src/infra/data-sources/sqs-client.data-sour
 import { PersistVideoDataRepository } from 'src/infra/repositories/persist-video-data.repository';
 import { SendMessageToQueueRepository } from 'src/infra/repositories/send-message-to-queue.repository';
 import { UploadVideoRepository } from 'src/infra/repositories/upload-video.repository';
+import { EnvironmentService } from 'src/config/environment/environment.service';
+import { EnvironmentServicePort } from 'src/config/environment/ports/environment.service.port';
 
 @Module({
   controllers: [PostUploadVideoController],
   providers: [
     {
+      provide: 'EnvironmentServicePort',
+      useClass: EnvironmentService,
+    },
+    {
       provide: 'S3ClientDataSourcePort',
-      useClass: S3ClientDataSource,
+      useFactory: (_environments: EnvironmentServicePort) => {
+        return new S3ClientDataSource(_environments);
+      },
+      inject: ['EnvironmentServicePort'],
     },
     {
       provide: 'UploadVideoGateway',
@@ -43,7 +52,10 @@ import { UploadVideoRepository } from 'src/infra/repositories/upload-video.repos
     },
     {
       provide: 'SQSClientDataSourcePort',
-      useClass: SQSClientDataSource,
+      useFactory: (_environments: EnvironmentServicePort) => {
+        return new SQSClientDataSource(_environments);
+      },
+      inject: ['EnvironmentServicePort'],
     },
     {
       provide: 'SendMessageToQueueGateway',
@@ -63,7 +75,10 @@ import { UploadVideoRepository } from 'src/infra/repositories/upload-video.repos
     },
     {
       provide: 'DynamoDBClientDataSourcePort',
-      useClass: DynamoDBClientDataSource,
+      useFactory: (_environments: EnvironmentServicePort) => {
+        return new DynamoDBClientDataSource(_environments);
+      },
+      inject: ['EnvironmentServicePort'],
     },
     {
       provide: 'PersistVideoDataGateway',
