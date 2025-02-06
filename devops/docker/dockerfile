@@ -1,24 +1,23 @@
+# Etapa Base
 FROM node:20-slim AS base
-
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install --only=production && npm cache clean --force
-
 COPY . .
 
-
-
+# Etapa de Desenvolvimento
 FROM base AS development
-
 RUN npm install --only=development
-
 CMD ["npm", "run", "start"]
 
+# Etapa de Build
+FROM base AS build
+RUN npm run build  # Gera a pasta dist/
 
-
-
-FROM base AS production
-
+# Etapa de Produção
+FROM node:20-slim AS production
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+COPY package*.json ./
+RUN npm install --only=production
 CMD ["node", "dist/main.js"]
