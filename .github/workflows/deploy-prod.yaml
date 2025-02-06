@@ -36,7 +36,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/hacka-video-uploader-api:latest .
+          docker build -f ./devops/docker/dockerfile -t ${{ secrets.DOCKER_USERNAME }}/hacka-video-uploader-api:latest .
 
       - name: Push Docker image
         run: |
