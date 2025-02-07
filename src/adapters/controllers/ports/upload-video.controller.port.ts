@@ -1,3 +1,5 @@
+import { UploadVideoControllerDto } from '@adapters/controllers/dtos/upload-video.controller.dto';
+
 export interface UploadVideoControllerPort {
-  execute(file: Express.Multer.File): Promise<void>;
+  execute(input: UploadVideoControllerDto): Promise<void>;
 }

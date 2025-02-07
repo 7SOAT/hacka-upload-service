@@ -1,3 +1,5 @@
+import { VideoProcessData } from '@entities/video';
+
 export interface PersistVideoDataUseCasePort {
-  execute(item: object): Promise<void>;
+  execute(videoData: VideoProcessData): Promise<void>;
 }

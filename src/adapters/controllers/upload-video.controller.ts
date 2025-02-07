@@ -5,6 +5,7 @@ import { UploadVideoUseCasePort } from 'src/application/ports/upload-video.useca
 import { SendMessageToQueueUseCasePort } from 'src/application/ports/send-message-to-queue.usecase.port';
 import { PersistVideoDataUseCasePort } from 'src/application/ports/persist-video-data.usecase.port';
 import { UploadVideoControllerPort } from 'src/adapters/controllers/ports/upload-video.controller.port';
+import { UploadVideoControllerDto } from './dtos/upload-video.controller.dto';
 
 export class UploadVideoController implements UploadVideoControllerPort {
   constructor(
@@ -13,27 +14,23 @@ export class UploadVideoController implements UploadVideoControllerPort {
     private _persistVideoDataUseCase: PersistVideoDataUseCasePort,
   ) {}
 
-  async execute(file: Express.Multer.File): Promise<void> {
+  async execute(input: UploadVideoControllerDto): Promise<void> {
     const userId = randomUUID();
-    const videoId = randomUUID();
 
-    const item: VideoProcessData = {
-      userId: userId,
-      videoId: videoId,
-      s3Key: `${userId}/${videoId}/${file.originalname}`,
+    const videoData: VideoProcessData = {
+      userId,
+      video: {
+        videoId: input.videoId,
+        originalFilename: input.originalFilename,
+        contentType: input.contentType,
+      },
+      s3Key: `${userId}/${input.videoId}/${input.originalFilename}`,
       status: VideoStatus.UPLOADING,
       createdAt: new Date().toISOString(),
     };
 
-    await this._uploadVideoUseCase.execute(item, file);
-    await this._persistVideoDataUseCase.execute(item);
-    await this._sendMessageToQueueUseCase.execute({
-      UserId: item.userId,
-      VideoId: item.videoId,
-      S3Key: item.s3Key,
-      Status: item.status,
-      CreatedAt: item.createdAt,
-      MessageId: randomUUID(),
-    });
+    //await this._uploadVideoUseCase.execute(item, file);
+    await this._persistVideoDataUseCase.execute(videoData);
+    await this._sendMessageToQueueUseCase.execute(videoData);
   }
 }

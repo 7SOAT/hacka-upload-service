@@ -25,6 +25,7 @@
       "@entities/*": ["src/core/entities/*"],
       "@enums/*": ["src/core/entities/enums/*"],
       "@routes/*": ["src/infra/api/routes/*"],
+      "@data-sources/*": ["src/infra/data-sources/*"],
     }
   }
 }

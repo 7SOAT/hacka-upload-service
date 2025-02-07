@@ -1,5 +1,6 @@
 import { SendMessageToQueueGateway } from 'src/adapters/gateways/send-message-to-queue.gateway';
 import { SendMessageToQueueUseCasePort } from '../ports/send-message-to-queue.usecase.port';
+import { VideoProcessData } from '@entities/video';
 
 export class SendMessageToQueueUseCase
   implements SendMessageToQueueUseCasePort
@@ -8,7 +9,7 @@ export class SendMessageToQueueUseCase
     private _sendMessageToQueueRepository: SendMessageToQueueGateway,
   ) {}
 
-  async execute(message: object) {
-    await this._sendMessageToQueueRepository.execute(message);
+  async execute(videoData: VideoProcessData): Promise<void> {
+    await this._sendMessageToQueueRepository.execute(videoData);
   }
 }

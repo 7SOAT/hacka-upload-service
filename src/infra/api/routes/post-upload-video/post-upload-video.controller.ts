@@ -1,13 +1,5 @@
-import {
-  Body,
-  Controller,
-  Inject,
-  Post,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { PostFrameExtractorDTO } from './dto/post-frame-extractor.dto';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { PostUploadVideoDTO } from './dto/post-upload-video.dto';
 import { UploadVideoControllerPort } from 'src/adapters/controllers/ports/upload-video.controller.port';
 
 @Controller('v1/upload-video')
@@ -18,11 +10,7 @@ export class PostUploadVideoRoute {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  async execute(
-    @Body() input: PostFrameExtractorDTO,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    await this._uploadVideoController.execute(file);
+  async execute(@Body() input: PostUploadVideoDTO) {
+    await this._uploadVideoController.execute(input);
   }
 }

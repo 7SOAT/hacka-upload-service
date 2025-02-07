@@ -1,3 +1,5 @@
+import { VideoProcessData } from '@entities/video';
+
 export interface SendMessageToQueueUseCasePort {
-  execute(message: object): Promise<void>;
+  execute(videoData: VideoProcessData): Promise<void>;
 }
