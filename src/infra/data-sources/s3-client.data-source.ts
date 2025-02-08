@@ -54,7 +54,7 @@ export class S3ClientDataSource implements S3ClientDataSourcePort {
   async getPreSignedUrl(s3Key: string): Promise<string> {
     const command = new PutObjectCommand({
       Bucket: this._environments.frameExtractorS3Bucket,
-      Key: `${this._environments.frameExtractorS3Bucket}/${s3Key}`,
+      Key: `${s3Key}`,
     });
 
     try {

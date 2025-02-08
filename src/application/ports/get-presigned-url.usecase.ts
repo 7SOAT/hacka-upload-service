@@ -1,5 +1,5 @@
-import { GetPreSignedUrlUseCaseDto } from '@application/dtos/get-presigned-url.usecase.dto';
+import { GetPreSignedUrlUseCaseOutputDto } from '@application/dtos/get-presigned-url.usecase.dto';
 
 export interface GetPreSignedUrlUseCasePort {
-  execute(): Promise<GetPreSignedUrlUseCaseDto>;
+  execute(fileName: string): Promise<GetPreSignedUrlUseCaseOutputDto>;
 }

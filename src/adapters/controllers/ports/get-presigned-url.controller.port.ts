@@ -1,5 +1,5 @@
-import { GetPreSignedUrlControllerDto } from '@adapters/controllers/dtos/get-presigned-url.controller.dto';
+import { GetPreSignedUrlControllerOutputDto } from 'src/adapters/controllers/dtos/get-presigned-url.controller.dto';
 
 export interface GetPreSignedUrlControllerPort {
-  execute(): Promise<GetPreSignedUrlControllerDto>;
+  execute(fileName: string): Promise<GetPreSignedUrlControllerOutputDto>;
 }
