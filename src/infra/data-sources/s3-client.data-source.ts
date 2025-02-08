@@ -57,6 +57,11 @@ export class S3ClientDataSource implements S3ClientDataSourcePort {
       Key: `${s3Key}`,
     });
 
+    console.log('video data', {
+      Bucket: this._environments.frameExtractorS3Bucket,
+      Key: `${s3Key}`,
+    });
+
     try {
       return await getSignedUrl(this._s3Client, command);
     } catch (error) {
