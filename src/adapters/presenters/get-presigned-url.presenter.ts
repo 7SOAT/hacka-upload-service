@@ -3,7 +3,7 @@ import { GetPreSignedUrlControllerDto } from '@controllers/dtos/get-presigned-ur
 export class GetPreSignedUrlPresenter {
   static toJson(videoData: GetPreSignedUrlControllerDto): object {
     return {
-      preSignedUrl: videoData.s3PreSignedUrl,
+      preSignedUrl: videoData.preSignedUrl,
       videoId: videoData.videoId,
     };
   }

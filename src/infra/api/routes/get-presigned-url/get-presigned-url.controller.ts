@@ -1,5 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { GetPreSignedUrlControllerPort } from 'src/adapters/controllers/ports/create-presigned-url.controller.port';
+import { GetPreSignedUrlControllerPort } from 'src/adapters/controllers/ports/get-presigned-url.controller.port';
+import { GetPreSignedUrlPresenter } from 'src/adapters/presenters/get-presigned-url.presenter';
 
 @Controller('v1/presigned-url')
 export class GetPreSignedUrlRoute {
@@ -10,6 +11,6 @@ export class GetPreSignedUrlRoute {
 
   @Get()
   async execute() {
-    return this._controller.execute();
+    return GetPreSignedUrlPresenter.toJson(await this._controller.execute());
   }
 }
