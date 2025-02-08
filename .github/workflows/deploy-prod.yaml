@@ -89,15 +89,15 @@ jobs:
         run: |
           kubectl rollout status deployment/hacka-video-uploader-deployment
 
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: latest
+      # - name: Install Terraform
+      #   uses: hashicorp/setup-terraform@v2
+      #   with:
+      #     terraform_version: latest
 
-      - name: Initialize Terraform
-        run: |
-          terraform -chdir=devops/terraform init
+      # - name: Initialize Terraform
+      #   run: |
+      #     terraform -chdir=devops/terraform init
 
-      - name: Apply Terraform changes
-        run: |
-          terraform -chdir=devops/terraform apply -auto-approve -no-color -compact-warnings
+      # - name: Apply Terraform changes
+      #   run: |
+      #     terraform -chdir=devops/terraform apply -auto-approve -no-color -compact-warnings
