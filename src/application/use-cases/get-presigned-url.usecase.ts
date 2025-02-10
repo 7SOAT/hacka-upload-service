@@ -6,8 +6,10 @@ import { GetPreSignedUrlUseCaseOutputDto } from '../dtos/get-presigned-url.useca
 export class GetPreSignedUrlUseCase implements GetPreSignedUrlUseCasePort {
   constructor(private _repository: GetPreSignedUrlGateway) {}
 
-  async execute(fileName: string): Promise<GetPreSignedUrlUseCaseOutputDto> {
-    const userId: string = randomUUID();
+  async execute(
+    fileName: string,
+    userId: string,
+  ): Promise<GetPreSignedUrlUseCaseOutputDto> {
     const videoId: string = randomUUID();
 
     const s3Key: string = `${userId}/${videoId}/${fileName}`;

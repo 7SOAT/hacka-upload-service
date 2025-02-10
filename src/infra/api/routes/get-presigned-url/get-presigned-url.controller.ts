@@ -10,9 +10,12 @@ export class GetPreSignedUrlRoute {
   ) {}
 
   @Get()
-  async execute(@Query('filename') fileName: string) {
+  async execute(
+    @Query('filename') fileName: string,
+    @Query('userId') userId: string,
+  ) {
     return GetPreSignedUrlPresenter.toJson(
-      await this._controller.execute(fileName),
+      await this._controller.execute(fileName, userId),
     );
   }
 }

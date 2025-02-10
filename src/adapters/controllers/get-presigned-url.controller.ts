@@ -7,7 +7,10 @@ export class GetPreSignedUrlController
 {
   constructor(private _useCase: GetPreSignedUrlUseCasePort) {}
 
-  async execute(fileName: string): Promise<GetPreSignedUrlControllerOutputDto> {
-    return await this._useCase.execute(fileName);
+  async execute(
+    fileName: string,
+    userId: string,
+  ): Promise<GetPreSignedUrlControllerOutputDto> {
+    return await this._useCase.execute(fileName, userId);
   }
 }
