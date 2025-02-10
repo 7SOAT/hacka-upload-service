@@ -6,5 +6,5 @@ metadata:
 data:
   NODE_ENV: "production"
   API_PORT: "3000"
-  FRAME_EXTRACTOR_S3_BUCKET: "hacka-frame-extractor-storage"
+  FRAME_EXTRACTOR_S3_BUCKET: "afluga-hacka-videos-storage"
   FRAME_EXTRACTOR_QUEUE_URL: "frame-extractor"
