@@ -1,104 +1,87 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+<h1 align="center"> ☁️ Hackathon - Video Uploader Service</h1>
+
+<h2 id="quality-gate"> 📃 Descrição </h2>
+
+<p align="justify">
+  Responsável por gerar a URL para upload do vídeo no na núvem.
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<h2>🏗️ Estrutura do projeto</h2>
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+```
+devops
+├── docker
+├── k8s
+└── terraform
+src
+├── adapters
+|   ├── controllers
+|   ├── gateways
+|   ├── presenters
+├── application
+|   ├── dtos
+|   ├── ports
+|   ├── use-cases
+├── config
+|   ├── ports
+├── core
+|   ├── enums
+├── infra
+|   ├── api
+|   ├── data-sources
+|   ├── repositories
+└── main.ts
 ```
 
-## Running the app
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-```bash
-# development
-$ npm run start
+<h2 id="requisitos"> ⚙️ Rodando o projeto</h2>
 
-# watch mode
-$ npm run start:dev
+<ol start="1">
+  <li>
+    <h3>Clonando o repositório</h3>
 
-# production mode
-$ npm run start:prod
-```
+    git clone https://github.com/7SOAT/hacka-upload-service.git
+    cd hacka-upload-service
+  </li>
+  <li>
+    <h3>Instalar bibliotecas</h3>
+    <p>Para instalar as bibliotecas, abra o terminal na raiz do projeto e execute o seguinte comando:</p>
 
-## Test
+    npm install
+  </li>
+  <li>
+    <h3>Rodar instâncias no Docker</h3>
+    <p>Para rodar as instâncias do banco e da aplicação no Docker, a maneira mais simples é utilizar a extensão do VSCode, explicada no gif abaixo:</p>
+    <img src="https://code.visualstudio.com/assets/docs/containers/overview/select-subset.gif">
+    <p>Ou se preferir pode ser feito pelo terminal com:</p>
+    <p> - Para windows:</p>
 
-```bash
-# unit tests
-$ npm run test
+      docker-compose up --build
 
-# e2e tests
-$ npm run test:e2e
+   <p> - Para Linux/macOS</p>
 
-# test coverage
-$ npm run test:cov
-```
+     docker compose up --build
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  <li>
+    <h3>Testar aplicação</h3>
+    <p>Execute o seguinte comando para fazer os testes com coverage do microsserviço:</p>
 
-## Stay in touch
+    npm run test:cov
+  </li>
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+</ol>
 
-## Docker
-```bash
-# build docker image
-$ docker build -f ./devops/docker/dockerfile -t luizpainodev/hacka-video-uploader-api .
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-# run docker container
-$ docker run -d -p 3000:3000 luizpainodev/hacka-video-uploader-api
+[![Acesse o diagrama no draw.io](https://imgur.com/a/f5zdZnN)](https://viewer.diagrams.net/index.html?tags=%7B%7D&lightbox=1&highlight=0000ff&layers=1&nav=1&title=hackathon-video-framer.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1iZKwTulRhUoC2yItYfIwjQlRbT8_YyDv%26export%3Ddownload#%7B%22pageId%22%3A%22Kp5rze23rEPJkmFxVfdC%22%7D)
 
-# push docker image to docker hub
-$ docker push luizpainodev/hacka-video-uploader-api:latest
-```
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-## Kubernetes
-```bash
-# set kubectl context
-$ aws eks update-kubeconfig --region us-east-1 --name application-cluster
+<h2 id="requisitos"> 👤 Integrantes</h2>
 
-# apply kubernetes service
-$ kubectl apply -f ./devops/k8s/service.yaml
-
-# apply kubernetes deployment
-$ kubectl apply -f ./devops/k8s/deployment.yaml
-```
-
-## Terraform
-```bash
-# init terraform state
-$ terraform -chdir=devops/terraform init
-$ terraform -chdir=devops/terraform apply -auto-approve -no-color -compact-warnings
-```
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+[<img src="https://avatars.githubusercontent.com/u/76217994?v=4" width=115 > <br> <sub> Aureo Alexandre </sub>](https://github.com/Aureo-Bueno) | [<img src="https://avatars.githubusercontent.com/u/97612275?v=4" width=115 > <br> <sub> Fauze Cavalari </sub>](https://github.com/devfauze) | [<img src="https://avatars.githubusercontent.com/u/53823656?v=4" width=115 > <br> <sub> Gabriella Andrade </sub>](https://github.com/GabiAndradeD) | [<img src="https://avatars.githubusercontent.com/u/61785785?v=4" width=115 > <br> <sub> Luiz H. L. Paino </sub>](https://github.com/luizhlpaino) |
+| :---: | :---: | :---: | :---: |
