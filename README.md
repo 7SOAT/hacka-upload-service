@@ -57,11 +57,11 @@ src
     <p>No terminal rode o seguinte código:</p>
     <p> - Para windows:</p>
 
-      docker build -t nome-da-imagem -f devops/docker/dockerfile .
+      docker build -t hacka-video-uploader-latest -f devops/docker/dockerfile .
 
    <p> - Para Linux/macOS</p>
 
-     docker build -t nome-da-imagem -f devops/docker/dockerfile devops/docker/
+     sudo docker build -t hacka-video-uploader-latest -f devops/docker/dockerfile .
 
 
   <li>
